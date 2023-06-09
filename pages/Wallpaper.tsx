@@ -48,6 +48,7 @@ import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 
 // toast
 import { useToast } from "react-native-toast-notifications";
+import { saveImageFromURL } from "../utils";
 
 const Wallpaper = ({ route, navigation }: any) => {
   const [showButtons, setShowButtons] = useState(true);
@@ -207,15 +208,15 @@ const Wallpaper = ({ route, navigation }: any) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   className="h-10 w-10 bg-blue-500 rounded-lg flex items-center justify-center"
-                  onPress={() => {
-                    toast.show("We're working on this feature", {
-                      type: "danger",
-                    });
-                  }}
                   // onPress={() => {
-                  //   if (image?.data?.url)
-                  //     saveImageFromURL(image?.data?.url, image?.data?.title);
+                  //   toast.show("We're working on this feature", {
+                  //     type: "danger",
+                  //   });
                   // }}
+                  onPress={() => {
+                    if (image?.data?.url)
+                      saveImageFromURL(image?.data?.url, image?.data?.title);
+                  }}
                 >
                   <Entypo name="download" size={20} color="white" />
                 </TouchableOpacity>
