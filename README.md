@@ -14,7 +14,7 @@ Reddit Wallpapers a stunning mobile wallpaper app built with React Native in Exp
 
 ## Live APK
 
-**WILL BE AVAILABLE SOON**
+[Download](./download.apk)
 
 ## Screenshots
 
