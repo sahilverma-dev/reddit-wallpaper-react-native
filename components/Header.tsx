@@ -21,7 +21,7 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ subReddit, setSubReddit, showBottomBar }) => {
-  const { user, login } = useAuth();
+  const { user } = useAuth();
   const { navigate } = useNavigation();
 
   const [subRedditsData, setSubRedditsData] = useState<(SubReddit | null)[]>(

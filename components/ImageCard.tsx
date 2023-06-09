@@ -128,7 +128,7 @@ const ImageCard: FC<Props> = ({ image, index }) => {
         <View className="flex flex-row items-center justify-between absolute bottom-0 left-0 z-10 w-full ">
           <TouchableOpacity
             style={{
-              width: user ? "70%" : "100%",
+              width: user ? "50%" : "100%",
             }}
           >
             <Text
@@ -145,10 +145,10 @@ const ImageCard: FC<Props> = ({ image, index }) => {
                 isSaved
                   ? "bg-red-600 active:bg-red-900"
                   : "bg-blue-500 active:bg-blue-800"
-              }  px-2.5 py-1 rounded-full`}
+              }  px-3 py-1 rounded-full`}
             >
               <Text className="text-xs text-white font-bold">
-                {isSaved ? "Unsave" : "Save"}
+                {isSaved ? "Remove" : "Save"}
               </Text>
             </TouchableOpacity>
           )}

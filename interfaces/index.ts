@@ -1,6 +1,6 @@
 import { AuthSessionResult } from "expo-auth-session";
 import { User } from "firebase/auth";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 export interface IUser extends User {
   saved: string[];
@@ -57,6 +57,7 @@ export interface SubReddit {
 
 export interface AuthContextReturnType {
   user: IUser | null;
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
   logout: () => void;
   googleLogin: () => Promise<AuthSessionResult>;
 }

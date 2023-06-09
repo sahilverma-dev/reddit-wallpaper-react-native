@@ -9,29 +9,22 @@ import Profile from "../pages/Profile";
 import { useAuth } from "../context/AuthContext";
 import Loading from "./Loading";
 import { useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
-import { auth } from "../firebase/config";
 import { useToast } from "react-native-toast-notifications";
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   const toast = useToast();
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadUser = async () => {
       try {
         setIsLoading(true);
-        const payload = await AsyncStorage.getItem("payload");
-        if (payload) {
-          const parsedPayload = JSON.parse(payload);
-          const credentials = GoogleAuthProvider.credential(
-            parsedPayload.idToken,
-            parsedPayload.accessToken
-          );
-          await signInWithCredential(auth, credentials);
+        const user = await AsyncStorage.getItem("user");
+        if (user) {
+          setUser(JSON.parse(user));
         }
       } catch (error: any) {
         console.log(JSON.stringify(error));

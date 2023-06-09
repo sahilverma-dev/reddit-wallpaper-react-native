@@ -2,10 +2,9 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithCredential,
-  signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { createContext, useContext, useState, useEffect, FC } from "react";
 import Loading from "../components/Loading";
 
@@ -27,8 +26,9 @@ const AuthProvider = ({ children }: AuthProviderType) => {
   const toast = useToast();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        await AsyncStorage.setItem("user", JSON.stringify(user));
         const userDocRef = doc(firestore, `users/${user?.uid}`);
         onSnapshot(userDocRef, (snap) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -44,10 +44,13 @@ const AuthProvider = ({ children }: AuthProviderType) => {
       } else setUser(null);
       setLoading(true);
     });
+
+    return unsub;
   }, []);
 
   const [_, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: clientId,
+    expoClientId: "##########################",
+    androidClientId: "##########################",
   });
 
   useEffect(() => {
@@ -57,7 +60,6 @@ const AuthProvider = ({ children }: AuthProviderType) => {
           idToken: response.authentication?.idToken,
           accessToken: response.authentication?.accessToken,
         };
-        await AsyncStorage.setItem("payload", JSON.stringify(payload));
         const credentials = GoogleAuthProvider.credential(
           payload.idToken,
           payload.accessToken
@@ -72,7 +74,8 @@ const AuthProvider = ({ children }: AuthProviderType) => {
   const googleLogin = () => promptAsync();
 
   const logout = async () => {
-    await AsyncStorage.removeItem("payload");
+    await AsyncStorage.removeItem("user");
+    setUser(null);
     signOut(auth);
   };
 
@@ -80,6 +83,7 @@ const AuthProvider = ({ children }: AuthProviderType) => {
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         logout,
         googleLogin,
       }}

@@ -11,7 +11,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -20,11 +22,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "host.expo.exponent"
+      "package": "com.sahilverma.redditwallpaper"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "reddit-wallpaper"
+    "scheme": "reddit-wallpaper",
+    "extra": {
+      "eas": {
+        "projectId": "add10e41-77c5-4c7b-9f15-db52849f6554"
+      }
+    }
   }
 }
